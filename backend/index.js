@@ -47,6 +47,10 @@ app.post("/api/feedback", async (req, res) => {
   res.json({ success: true });
 });
 
+app.get("/health", (req, res) => {
+  res.status(200).json({ status: "ok" });
+});
+
 app.get("/api/feedback", async (req, res) => {
   const [rows] = await pool.query(
     "SELECT name, message, rating, created_at FROM feedback ORDER BY created_at DESC"
