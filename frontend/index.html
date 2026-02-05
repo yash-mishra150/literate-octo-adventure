@@ -1,19 +1,96 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Simple App</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Feedback</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <h1>Hello from Frontend</h1>
-  <button onclick="fetchData()">Call API</button>
 
-  <script>
-    async function fetchData() {
-      const res = await fetch("http://localhost:3000/api");
-      const data = await res.json();
-      alert(JSON.stringify(data));
-    }
-  </script>
+  <div class="card">
+    <h2>We’d Love Your Feedback 💬</h2>
+
+    <input id="name" type="text" placeholder="Your Name *" />
+    <input id="email" type="email" placeholder="Email (optional)" />
+
+    <select id="rating">
+      <option value="">Rating</option>
+      <option value="5">⭐⭐⭐⭐⭐</option>
+      <option value="4">⭐⭐⭐⭐</option>
+      <option value="3">⭐⭐⭐</option>
+      <option value="2">⭐⭐</option>
+      <option value="1">⭐</option>
+    </select>
+
+    <textarea id="message" placeholder="Your feedback *"></textarea>
+
+    <button onclick="submitFeedback()">Send Feedback</button>
+
+    <div id="feedbackList" class="feedback-list"></div>
+  </div>
+
+  <p class="note">
+    Your feedback helps us improve and build better experiences.
+  </p>
+
+  <iframe
+    class="map"
+    src="https://www.google.com/maps?q=India&output=embed"
+    loading="lazy">
+  </iframe>
+
+<script>
+async function submitFeedback() {
+  const payload = {
+    name: document.getElementById("name").value.trim(),
+    email: document.getElementById("email").value.trim(),
+    rating: document.getElementById("rating").value,
+    message: document.getElementById("message").value.trim()
+  };
+
+  if (!payload.name || !payload.message) {
+    alert("Name and message are required");
+    return;
+  }
+
+  const res = await fetch("/api/feedback", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(payload)
+  });
+
+  if (res.ok) {
+    document.getElementById("name").value = "";
+    document.getElementById("email").value = "";
+    document.getElementById("rating").value = "";
+    document.getElementById("message").value = "";
+    loadFeedback();
+  } else {
+    alert("Something went wrong. Please try again.");
+  }
+}
+
+async function loadFeedback() {
+  const res = await fetch("/api/feedback");
+  const data = await res.json();
+
+  const list = document.getElementById("feedbackList");
+  list.innerHTML = data.map(f => `
+    <div class="feedback-item">
+      <div class="feedback-header">
+        <strong>${f.name}</strong>
+        ${f.rating ? `<span>⭐${f.rating}</span>` : ""}
+      </div>
+      <p>${f.message}</p>
+      <small>${new Date(f.created_at).toLocaleString()}</small>
+    </div>
+  `).join("");
+}
+
+loadFeedback();
+</script>
+
 </body>
 </html>
 

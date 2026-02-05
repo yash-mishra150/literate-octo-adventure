@@ -1,0 +1,112 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  min-height: 100vh;
+  text-align: center;
+  padding-bottom: 40px;
+}
+
+.card {
+  background: white;
+  width: 100%;
+  max-width: 420px;
+  margin: 80px auto 20px;
+  padding: 30px;
+  border-radius: 18px;
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.25);
+}
+
+.card h2 {
+  margin-bottom: 20px;
+  color: #333;
+}
+
+input,
+textarea,
+select {
+  width: 100%;
+  margin: 10px 0;
+  padding: 12px 14px;
+  border-radius: 10px;
+  border: 1px solid #ddd;
+  font-size: 15px;
+}
+
+textarea {
+  height: 100px;
+  resize: none;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  outline: none;
+  border-color: #667eea;
+}
+
+button {
+  margin-top: 12px;
+  width: 100%;
+  padding: 14px;
+  background: #667eea;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+button:hover {
+  background: #5a67d8;
+}
+
+.feedback-list {
+  margin-top: 25px;
+  text-align: left;
+}
+
+.feedback-item {
+  background: #f4f4f4;
+  padding: 14px;
+  border-radius: 12px;
+  margin-bottom: 12px;
+}
+
+.feedback-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.feedback-item p {
+  margin: 8px 0;
+  font-size: 14px;
+}
+
+.feedback-item small {
+  color: #666;
+  font-size: 12px;
+}
+
+.note {
+  color: white;
+  margin: 24px 10px;
+  font-size: 15px;
+}
+
+.map {
+  width: 90%;
+  max-width: 900px;
+  height: 320px;
+  border-radius: 18px;
+  border: none;
+  margin: 0 auto;
+  display: block;
+}
+
